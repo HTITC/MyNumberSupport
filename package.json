@@ -1,0 +1,24 @@
+{
+  "name": "mynumbersupport",
+  "version": "1.0.0",
+  "description": "MyNumber support site",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HTITC/MyNumberSupport.git"
+  },
+  "author": "HTITC",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HTITC/MyNumberSupport/issues"
+  },
+  "homepage": "https://github.com/HTITC/MyNumberSupport#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "express-handlebars": "^2.0.1"
+  }
+}
