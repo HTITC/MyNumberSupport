@@ -15,6 +15,8 @@
 
 * Commit staged changes
     git commit  -m 'description'
+    git commit -am 'description'
+    // -a automatically stage modified and deleted files (but not added files)
 
 * Push to remote repository
         git push
