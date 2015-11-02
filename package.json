@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/HTITC/MyNumberSupport#readme",
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "csurf": "^1.8.3",
     "express": "^4.13.3",
-    "express-handlebars": "^2.0.1"
+    "express-handlebars": "^2.0.1",
+    "express-session": "^1.12.1"
   }
 }

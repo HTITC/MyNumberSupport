@@ -1,0 +1,22 @@
+* Very good practical reference:
+    http://stackoverflow.com/questions/315911/git-for-beginners-the-definitive-practical-guide
+
+* Stage all new files
+    git add .
+    (v1.x - ignores deleted files; v2.x stages deleted files too.)
+    See: http://stackoverflow.com/questions/572549/difference-between-git-add-a-and-git-add
+
+* Stage all modified files
+    git add -u
+
+* Stage all changes including added files:
+    git add -A
+    (equal to 'git add .' followed by 'git add -u')
+
+* Commit staged changes
+    git commit  -m 'description'
+
+* Push to remote repository
+        git push
+    OR
+        git push origin master

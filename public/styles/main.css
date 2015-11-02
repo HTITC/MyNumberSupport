@@ -4,5 +4,18 @@ body {
 }
 
 #body {
-    margin: 40px 0;
+    margin: 20px 0 0;
+}
+
+.flash {
+    margin: 20px 0 0;
+}
+.flash-success {
+    color: green;
+}
+.flash-error {
+    color: red;
+}
+.flash-warning {
+    color: orange;
 }

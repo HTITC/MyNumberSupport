@@ -1,0 +1,11 @@
+*) custom modules
+*) credentials.js and .gitignore
+*) See how csrf tokens generated
+*) res.locals
+*) Edit csrf token
+*) session vs cookie
+*) session options
+*) Array.some(), Array.every().
+*) Flash messages
+*) Login required
+*) pipe order; f/e flash message
