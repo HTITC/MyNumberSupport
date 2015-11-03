@@ -45,6 +45,7 @@ var handlebars = require('express-handlebars')
         defaultLayout:'main',
         extname: 'hbs',
         //layoutsDir="views/layouts/",
+        // See: http://stackoverflow.com/questions/21737057/handlebars-with-express-different-html-head-for-different-pages
         helpers: {
             section: function(name, options){
                 if(!this._sections) this._sections = {};
