@@ -5,6 +5,8 @@ app.use(express.static(__dirname + '/public'));
 
 var credentials = require('./credentials.js');
 
+//require('./lib/persistence').createSampleUsers();
+
 // cookie settings
 //app.use(require('cookie-parser')(credentials.secretKey));
 
@@ -62,7 +64,7 @@ var bodyParser = require('body-parser');
 //See: http://stackoverflow.com/questions/24330014/bodyparser-is-deprecated-express-4
 app.use(bodyParser.urlencoded({extended: true}));
 
-// Cross-Site Request Forgery prevenetion
+// Cross-Site Request Forgery prevention
 app.use(require('csurf')());
 app.use(function(req, res, next){
     res.locals._csrfToken = req.csrfToken();
@@ -96,6 +98,33 @@ app.post('/', function(req, res) {
     var username = req.body.username,
         password = req.body.password;
 
+    /*require('./lib/persistence').getUser(username, function(user) {
+        if (user) {
+            if (user.password === password) {
+                req.session.flash = {
+                    type: 'success',
+                    message: 'You are logged on now!',
+                };
+                req.session.loggedOn = true;
+                res.redirect(303, '/support');
+            } else {
+                req.session.flash = {
+                    type: 'error',
+                    message: 'Username or password incorrect.',
+                };
+                req.session.username = username;
+                res.redirect(303, '/');
+            }
+        } else {
+            req.session.flash = {
+                type: 'error',
+                message: 'Username or password incorrect.',
+            };
+            req.session.username = username;
+            res.redirect(303, '/');
+        }
+    });*/
+
     var found = credentials.users.some(function(u){
         return (u.username === username && u.password === password);
     });
@@ -127,6 +156,13 @@ app.get('/support', function(req, res) {
         };
         res.redirect(303, '/');
     }
+});
+
+app.get('/logout', function(req, res) {
+    if (req.session.loggedOn) {
+        delete req.session.loggedOn;
+    }
+    res.redirect(303, '/');
 });
 
 //------------------------------------------------------------------------------
