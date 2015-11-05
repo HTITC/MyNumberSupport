@@ -5,7 +5,9 @@ app.use(express.static(__dirname + '/public'));
 
 var credentials = require('./credentials.js');
 
-//require('./lib/persistence').createSampleUsers();
+//var db = require('./lib/persistence').sqlite3;
+//db.createUsersTable();
+//db.createSampleUsers();
 
 // cookie settings
 //app.use(require('cookie-parser')(credentials.secretKey));
@@ -98,15 +100,23 @@ app.post('/', function(req, res) {
     var username = req.body.username,
         password = req.body.password;
 
-    /*require('./lib/persistence').getUser(username, function(user) {
-        if (user) {
-            if (user.password === password) {
-                req.session.flash = {
-                    type: 'success',
-                    message: 'You are logged on now!',
-                };
-                req.session.loggedOn = true;
-                res.redirect(303, '/support');
+        /*require('./lib/persistence').pg.getUser(username, function(user) {
+            if (user) {
+                if (user.password === password) {
+                    req.session.flash = {
+                        type: 'success',
+                        message: 'You are logged on now!',
+                    };
+                    req.session.loggedOn = true;
+                    res.redirect(303, '/support');
+                } else {
+                    req.session.flash = {
+                        type: 'error',
+                        message: 'Username or password incorrect.',
+                    };
+                    req.session.username = username;
+                    res.redirect(303, '/');
+                }
             } else {
                 req.session.flash = {
                     type: 'error',
@@ -115,17 +125,36 @@ app.post('/', function(req, res) {
                 req.session.username = username;
                 res.redirect(303, '/');
             }
-        } else {
-            req.session.flash = {
-                type: 'error',
-                message: 'Username or password incorrect.',
-            };
-            req.session.username = username;
-            res.redirect(303, '/');
-        }
-    });*/
+        });*/
 
-    var found = credentials.users.some(function(u){
+        require('./lib/persistence').sqlite3.getUser(username, function(user) {
+            if (user) {
+                if (user.password === password) {
+                    req.session.flash = {
+                        type: 'success',
+                        message: 'You are logged on now!',
+                    };
+                    req.session.loggedOn = true;
+                    res.redirect(303, '/support');
+                } else {
+                    req.session.flash = {
+                        type: 'error',
+                        message: 'Username or password incorrect.',
+                    };
+                    req.session.username = username;
+                    res.redirect(303, '/');
+                }
+            } else {
+                req.session.flash = {
+                    type: 'error',
+                    message: 'Username or password incorrect.',
+                };
+                req.session.username = username;
+                res.redirect(303, '/');
+            }
+        });
+
+    /*var found = credentials.users.some(function(u){
         return (u.username === username && u.password === password);
     });
 
@@ -143,7 +172,7 @@ app.post('/', function(req, res) {
         };
         req.session.username = username;
         res.redirect(303, '/');
-    }
+    }*/
 })
 
 app.get('/support', function(req, res) {
