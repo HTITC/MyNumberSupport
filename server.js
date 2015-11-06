@@ -5,9 +5,10 @@ app.use(express.static(__dirname + '/public'));
 
 var credentials = require('./credentials.js');
 
-//var db = require('./lib/persistence').sqlite3;
-//db.createUsersTable();
-//db.createSampleUsers();
+var db = require('./lib/persistence').sqlite3;
+db.openDb(function() {
+    db.createUsersTable(db.createSampleUsers(db.closeDb));
+});
 
 // cookie settings
 //app.use(require('cookie-parser')(credentials.secretKey));
@@ -175,16 +176,21 @@ app.post('/', function(req, res) {
     }*/
 })
 
-app.get('/support', function(req, res) {
-    if (req.session.loggedOn) {
-        res.render('support');
-    } else {
+app.use(function(req, res, next) {
+    if (!req.session.loggedOn) {
         req.session.flash = {
             type: 'error',
             message: 'Please log on to the site.',
         };
         res.redirect(303, '/');
+    } else {
+        res.locals.loggedOn = true;
+        next();
     }
+});
+
+app.get('/support', function(req, res) {
+    res.render('support');
 });
 
 app.get('/logout', function(req, res) {
