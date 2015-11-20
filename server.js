@@ -6,9 +6,6 @@ app.use(express.static(__dirname + '/public'));
 var credentials = require('./credentials.js');
 
 var db = require('./lib/persistence').sqlite3;
-db.openDb(function() {
-    db.createUsersTable(db.createSampleUsers(db.closeDb));
-});
 
 // cookie settings
 //app.use(require('cookie-parser')(credentials.secretKey));
