@@ -86,7 +86,7 @@ app.use(function(req, res, next){
 
 app.get('/', function(req, res) {
     // res.render('login', { csrfToken: req.csrfToken() });
-    res.render('login'); // use res.locals._csrfToken; see above CSRF prevenetion settings
+    res.render('login'); // use res.locals._csrfToken; see above CSRF prevention settings
 });
 
 app.post('/', function(req, res) {
